@@ -1,1 +1,1 @@
-web: gunicorn --bind :8000 --workers 3 --threads 2 config.wsgi:application
+web: gunicorn config.wsgi --log-file - 
