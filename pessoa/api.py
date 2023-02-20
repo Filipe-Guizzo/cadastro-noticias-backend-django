@@ -44,8 +44,9 @@ router = Router()
 
 @router.post("/enviar-sms/", response={200:EnviarSmsSchema, 404:MessageSchema})
 def enviar_sms(request, payload:EnviarSmsSchemaIn):
-        json_data = payload.dict()
-        email = json_data['email']
+    json_data = payload.dict()
+    email = json_data['email']
+    try:
         pessoa = Pessoa.objects.get(email=email)
         codigo = random.randint(1000, 9999)
         numero = ''.join(e for e in pessoa.telefone if e.isalnum())
@@ -61,7 +62,11 @@ def enviar_sms(request, payload:EnviarSmsSchemaIn):
             "codigo": codigo,
             "id_pessoa": pessoa.id
         }
-
+    except:
+        return 404,{
+            "message": "E-mail não encontrado",
+            "status": 404
+        }
 
 @router.post("/reenviar-sms/", response={200:EnviarSmsSchema, 400:MessageSchema})
 def reenviar_sms(request, payload:ReenviarSmsSchemaIn):
