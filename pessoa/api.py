@@ -44,15 +44,14 @@ router = Router()
 
 @router.post("/enviar-sms/", response={200:EnviarSmsSchema, 404:MessageSchema})
 def enviar_sms(request, payload:EnviarSmsSchemaIn):
-    json_data = payload.dict()
-    email = json_data['email']
-    try:
+        json_data = payload.dict()
+        email = json_data['email']
         pessoa = Pessoa.objects.get(email=email)
         codigo = random.randint(1000, 9999)
         numero = ''.join(e for e in pessoa.telefone if e.isalnum())
         
         account_sid = "AC04f62018059822ba5b7930b7a5bfeffc"
-        auth_token  = "7f167cf408a10ac237f0e290c300eed9"
+        auth_token  = "a1fd63bdefaae89eca9c3181c144e8e4"
 
         client = Client(account_sid, auth_token)
 
@@ -62,11 +61,7 @@ def enviar_sms(request, payload:EnviarSmsSchemaIn):
             "codigo": codigo,
             "id_pessoa": pessoa.id
         }
-    except:
-        return 404,{
-            "message": "E-mail não encontrado",
-            "status": 404
-        }
+
 
 @router.post("/reenviar-sms/", response={200:EnviarSmsSchema, 400:MessageSchema})
 def reenviar_sms(request, payload:ReenviarSmsSchemaIn):
