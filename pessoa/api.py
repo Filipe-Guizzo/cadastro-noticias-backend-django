@@ -51,7 +51,7 @@ def enviar_sms(request, payload:EnviarSmsSchemaIn):
         numero = ''.join(e for e in pessoa.telefone if e.isalnum())
         
         account_sid = "AC04f62018059822ba5b7930b7a5bfeffc"
-        auth_token  = "a1fd63bdefaae89eca9c3181c144e8e4"
+        auth_token  = "23fac2b981e99cb830103b0937128170"
 
         client = Client(account_sid, auth_token)
 
