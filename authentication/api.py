@@ -28,7 +28,7 @@ def login(request, payload: LoginSchemaIn):
         if bcrypt.checkpw(senha.encode("utf-8"), usuario.senha.encode("utf-8")):
                 return 200,{
                     "token":usuario.token,
-                    "id_usuario": usuario.id
+                    "id_pessoa": usuario.id
                 }
         else:
             return 401,{
