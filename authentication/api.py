@@ -4,6 +4,7 @@ import bcrypt
 
 class LoginSchema(Schema):
     token:str
+    id_pessoa: int
 
 class LoginSchemaIn(Schema):
     email:str
